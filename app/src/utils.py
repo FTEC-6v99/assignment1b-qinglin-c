@@ -7,3 +7,15 @@
 # for reference on exceptions, check the class notes here: https://github.com/FTEC-6v99/python-overview/blob/master/advanced/exceptions.py
 #
 # Make sure that you add type hints to the function paramter and return value
+
+import typing as t
+from app.src.Review import Review
+
+
+def calculate_avg_rating(reviews: t.List[Review]) -> float:
+    if len(reviews) == 0:
+        return 0.0
+    sum = 0.0
+    for review in reviews:
+        sum += review.rating
+    return round(sum / len(reviews), 2)   
