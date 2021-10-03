@@ -6,3 +6,27 @@
 #
 # If the list of reviews is empty, return an empty dictionary
 # Make sure that you add type hints to the function paramter and return value
+
+from app.src.Review import Review
+from app.src.utils import calculate_avg_rating
+
+def calc_avg_rating(reviews: list[Review]) -> dict[str, float]:
+    if len(reviews) == 0:
+        return {}
+
+    # group the list by restuarent name
+    restaurant_name: dict[str, list[Review]] = {}
+    for review in reviews:
+        restaurant: str = review.restaurant
+        #if restaurant in restaurant_name.key():
+        if restaurant in restaurant_name:
+            restaurant_name.get(restaurant).append(review)
+        else:
+            restaurant_name[restaurant] = [review]
+            
+    restaurant_avg_rating: dict[str, float] = {}
+    for restaurant, reviews in restaurant_name.items():
+        avg_rating = calculate_avg_rating(reviews)
+        restaurant_avg_rating[restaurant] = avg_rating
+    return restaurant_avg_rating
+   
